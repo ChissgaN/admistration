@@ -1,20 +1,25 @@
-import sql from "mssql";
+import sql from 'mssql';
 import { dbConfig } from "../config/db_config.js";
+ 
+
+const config =
+{
+  ...dbConfig,
+  options: {
+    trustServerCertificate: true,
+    trustedConnection: true,
+  },
+  
+}
 
 export const pool = sql.connect(
-  {
-    ...dbConfig,
-    options: {
-      encrypt: false,
-      trustServerCertificate: true,
-      trustedConnection: true,
-    },
-  },
+  config,
   (err) => {
     if (err) {
       console.log(err);
       return;
     }
     console.log("Database connected");
+
   }
 );
